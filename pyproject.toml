@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onshape-sdk-zachsharma"
+version = "0.1.1"
+description = "A lightweight, typed Python SDK for the Onshape REST API"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [
+  { name = "Zach Sharma", email = "zachariah.sharma@gmail.com" }
+]
+keywords = ["onshape", "cad", "api", "sdk", "rest"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+  "python-dotenv>=1.0",
+  "requests>=2.28",
+]
+
+[project.urls]
+Homepage = "https://github.com/zachariah-sharma/pyshape"
+Documentation = "https://zachariah-sharma.github.io/pyshape/"
+Issues = "https://github.com/zachariah-sharma/pyshape/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["onshape_sdk", "onshape_sdk.*"]
+
+[tool.setuptools.package-data]
+onshape_sdk = ["py.typed"]
