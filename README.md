@@ -2,7 +2,7 @@
 
 A lightweight, typed Python SDK for the [Onshape REST API](https://onshape-public.github.io/docs/).
 
-Documentation: [https://zachariah-sharma.github.io/pyshape/](https://zachariah-sharma.github.io/pyshape/)
+Documentation: [https://zachariahsharma.github.io/onshape-sdk/](https://zachariahsharma.github.io/onshape-sdk/)
 
 ## Install
 

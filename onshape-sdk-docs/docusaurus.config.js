@@ -7,11 +7,11 @@ const config = {
   favicon: 'img/favicon.ico',
   staticDirectories: ['static'],
 
-  url: 'https://zachariah-sharma.github.io',
-  baseUrl: '/pyshape/',
+  url: 'https://zachariahsharma.github.io',
+  baseUrl: '/onshape-sdk/',
 
-  organizationName: 'zachariah-sharma',
-  projectName: 'pyshape',
+  organizationName: 'zachariahsharma',
+  projectName: 'onshape-sdk',
 
   onBrokenLinks: 'throw',
   markdown: {
@@ -59,7 +59,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/zachariah-sharma/pyshape',
+            href: 'https://github.com/zachariahsharma/onshape-sdk',
             label: 'GitHub',
             position: 'right',
           },
@@ -78,7 +78,7 @@ const config = {
           {
             title: 'Resources',
             items: [
-              { label: 'GitHub', href: 'https://github.com/zachariah-sharma/pyshape' },
+              { label: 'GitHub', href: 'https://github.com/zachariahsharma/onshape-sdk' },
               { label: 'Onshape API Docs', href: 'https://onshape-public.github.io/docs/' },
               { label: 'API Explorer', href: 'https://cad.onshape.com/glassworks/explorer' },
             ],

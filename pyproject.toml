@@ -31,9 +31,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/zachariah-sharma/pyshape"
-Documentation = "https://zachariah-sharma.github.io/pyshape/"
-Issues = "https://github.com/zachariah-sharma/pyshape/issues"
+Homepage = "https://github.com/zachariahsharma/onshape-sdk"
+Documentation = "https://zachariahsharma.github.io/onshape-sdk/"
+Issues = "https://github.com/zachariahsharma/onshape-sdk/issues"
 
 [tool.setuptools]
 include-package-data = true
