@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Optional
 
+from .api_version import API_VERSION_PATH
 from .types import AssemblyDefinition, BomTable, MateFeature, Occurrence
 from .utils import build_wvm_path
 
@@ -12,9 +13,9 @@ if TYPE_CHECKING:
 
 
 class AssembliesApi:
-    """Endpoints under ``/api/v10/assemblies``."""
+    """Endpoints under ``/{API_VERSION_PATH}/assemblies``."""
 
-    _BASE = "/api/v10/assemblies"
+    _BASE = f"{API_VERSION_PATH}/assemblies"
 
     def __init__(self, client: "OnshapeClient") -> None:
         self._c = client
