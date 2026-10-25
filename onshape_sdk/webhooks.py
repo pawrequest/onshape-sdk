@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 class WebhooksApi:
-    """Endpoints under ``/api/v6/webhooks``."""
+    """Endpoints under ``/api/v10/webhooks``."""
 
     # Common event types
     EVENTS = (
@@ -28,7 +28,7 @@ class WebhooksApi:
 
     def list(self) -> list[Webhook]:
         """List all webhooks owned by the current user."""
-        r = self._c.get("/api/v6/webhooks")
+        r = self._c.get("/api/v10/webhooks")
         r.raise_for_status()
         data = r.json()
         items = data.get("items", data if isinstance(data, list) else [])
@@ -60,13 +60,13 @@ class WebhooksApi:
             body["filter"] = filter
         if options:
             body["options"] = options
-        r = self._c.post("/api/v6/webhooks", body=body)
+        r = self._c.post("/api/v10/webhooks", body=body)
         r.raise_for_status()
         return Webhook.from_dict(r.json())
 
     def get(self, webhook_id: str) -> Webhook:
         """Get details of a specific webhook."""
-        r = self._c.get(f"/api/v6/webhooks/{webhook_id}")
+        r = self._c.get(f"/api/v10/webhooks/{webhook_id}")
         r.raise_for_status()
         return Webhook.from_dict(r.json())
 
@@ -89,11 +89,11 @@ class WebhooksApi:
             body["filter"] = filter
         if options is not None:
             body["options"] = options
-        r = self._c.post(f"/api/v6/webhooks/{webhook_id}", body=body)
+        r = self._c.post(f"/api/v10/webhooks/{webhook_id}", body=body)
         r.raise_for_status()
         return Webhook.from_dict(r.json())
 
     def delete(self, webhook_id: str) -> None:
         """Delete a webhook."""
-        r = self._c.delete(f"/api/v6/webhooks/{webhook_id}")
+        r = self._c.delete(f"/api/v10/webhooks/{webhook_id}")
         r.raise_for_status()

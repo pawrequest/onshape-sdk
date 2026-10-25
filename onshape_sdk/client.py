@@ -245,8 +245,8 @@ class OnshapeClient:
         """Run a quick auth diagnostic and print results.
 
         Tests:
-            1. ``GET /api/v6/users/sessioninfo`` — verifies HMAC signing works
-            2. ``GET /api/v6/documents?limit=1``  — verifies read scope
+            1. ``GET /api/v10/users/sessioninfo`` — verifies HMAC signing works
+            2. ``GET /api/v10/documents?limit=1``  — verifies read scope
 
         Returns
         -------
@@ -263,8 +263,8 @@ class OnshapeClient:
         print(f"  Base URL   : {self.base_url}")
 
         # Test 1 — session info
-        print(f"\n  [1/2] GET /api/v6/users/sessioninfo")
-        r1 = self.get("/api/v6/users/sessioninfo")
+        print(f"\n  [1/2] GET /api/v10/users/sessioninfo")
+        r1 = self.get("/api/v10/users/sessioninfo")
         if r1.status_code == 200:
             me = r1.json()
             print(f"    ✅ Authenticated as: {me.get('name')} ({me.get('email')})")
@@ -277,8 +277,8 @@ class OnshapeClient:
                 print("    → 204 No Content — keys may be invalid or expired")
 
         # Test 2 — list documents
-        print(f"\n  [2/2] GET /api/v6/documents?limit=1")
-        r2 = self.get("/api/v6/documents", query_params={"filter": 0, "limit": 1})
+        print(f"\n  [2/2] GET /api/v10/documents?limit=1")
+        r2 = self.get("/api/v10/documents", query_params={"filter": 0, "limit": 1})
         if r2.status_code == 200:
             items = r2.json().get("items", [])
             print(f"    ✅ Read scope OK — found {len(items)} document(s)")

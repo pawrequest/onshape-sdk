@@ -15,9 +15,9 @@ if TYPE_CHECKING:
 
 
 class BlobElementsApi:
-    """Endpoints under ``/api/v6/blobelements``."""
+    """Endpoints under ``/api/v10/blobelements``."""
 
-    _BASE = "/api/v6/blobelements"
+    _BASE = "/api/v10/blobelements"
 
     def __init__(self, client: "OnshapeClient") -> None:
         self._c = client

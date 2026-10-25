@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class MetadataApi:
-    """Endpoints under ``/api/v6/metadata``."""
+    """Endpoints under ``/api/v10/metadata``."""
 
     def __init__(self, client: "OnshapeClient") -> None:
         self._c = client
@@ -33,7 +33,7 @@ class MetadataApi:
         part_id : str, optional
             If given, return metadata for that specific part within the element.
         """
-        base = f"/api/v6/metadata{build_wvm_path(did, wvm, wvm_id, eid)}"
+        base = f"/api/v10/metadata{build_wvm_path(did, wvm, wvm_id, eid)}"
         if part_id:
             base += f"/p/{part_id}"
         r = self._c.get(base)
@@ -59,7 +59,7 @@ class MetadataApi:
         properties : list[dict]
             Each dict should have ``propertyId`` and ``value``.
         """
-        base = f"/api/v6/metadata{build_wvm_path(did, wvm, wvm_id, eid)}"
+        base = f"/api/v10/metadata{build_wvm_path(did, wvm, wvm_id, eid)}"
         if part_id:
             base += f"/p/{part_id}"
         r = self._c.post(base, body={"properties": properties})

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class ThumbnailsApi:
-    """Endpoints under ``/api/v6/thumbnails``."""
+    """Endpoints under ``/api/v10/thumbnails``."""
 
     def __init__(self, client: "OnshapeClient") -> None:
         self._c = client
@@ -33,7 +33,7 @@ class ThumbnailsApi:
             If provided, get thumbnails for a specific element; otherwise
             the document-level thumbnail is returned.
         """
-        path = f"/api/v6/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}"
+        path = f"/api/v10/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}"
         r = self._c.get(path)
         r.raise_for_status()
         return ThumbnailInfo.from_dict(r.json())
@@ -54,7 +54,7 @@ class ThumbnailsApi:
         size : str
             Desired size, e.g. ``"70x40"``, ``"300x300"``, ``"600x340"``.
         """
-        path = f"/api/v6/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}/s/{size}"
+        path = f"/api/v10/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}/s/{size}"
         r = self._c.get(path, accept="image/png")
         r.raise_for_status()
         return r.content
