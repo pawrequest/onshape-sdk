@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING, Any, Optional
 
 import requests as _requests
 
+from .api_version import API_VERSION_PATH
 from .types import TranslationStatus
 from .utils import build_wvm_path
 
@@ -27,7 +28,7 @@ class TranslationError(Exception):
 
 
 class TranslationsApi:
-    """Async export/import engine under ``/api/v10/…/translations``."""
+    """Async export/import engine under ``/{API_VERSION_PATH}/…/translations``."""
 
     # Supported format names (non-exhaustive)
     FORMATS = (
@@ -83,7 +84,7 @@ class TranslationsApi:
             If True the result is stored as a blob element in the document.
         """
         seg = self._ELEMENT_TYPES.get(element_type.lower(), element_type.lower())
-        path = f"/api/v10/{seg}{build_wvm_path(did, wvm, wvm_id, eid)}/translations"
+        path = f"{API_VERSION_PATH}/{seg}{build_wvm_path(did, wvm, wvm_id, eid)}/translations"
 
         body: dict = {
             "formatName": format_name.upper(),
@@ -103,7 +104,7 @@ class TranslationsApi:
 
     def get_status(self, translation_id: str) -> TranslationStatus:
         """Poll the status of a translation job."""
-        r = self._c.get(f"/api/v10/translations/{translation_id}")
+        r = self._c.get(f"{API_VERSION_PATH}/translations/{translation_id}")
         r.raise_for_status()
         return TranslationStatus.from_dict(r.json())
 
@@ -156,7 +157,7 @@ class TranslationsApi:
 
         Handles the S3 redirect that Onshape typically returns.
         """
-        path = f"/api/v10/documents/d/{did}/externaldata/{external_data_id}"
+        path = f"{API_VERSION_PATH}/documents/d/{did}/externaldata/{external_data_id}"
         r = self._c.get(path, accept="application/octet-stream")
         # Onshape often 302-redirects to an S3 signed URL
         if r.status_code in (301, 302, 303, 307, 308):

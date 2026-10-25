@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Optional
 
+from .api_version import API_VERSION_PATH
 from .types import Feature, Variable
 from .utils import build_wvm_path
 
@@ -12,9 +13,9 @@ if TYPE_CHECKING:
 
 
 class PartStudiosApi:
-    """Endpoints under ``/api/v10/partstudios``."""
+    """Endpoints under ``/{API_VERSION_PATH}/partstudios``."""
 
-    _BASE = "/api/v10/partstudios"
+    _BASE = f"{API_VERSION_PATH}/partstudios"
 
     def __init__(self, client: "OnshapeClient") -> None:
         self._c = client

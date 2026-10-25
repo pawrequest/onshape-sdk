@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Any, Optional, List
 
+from .api_version import API_VERSION_PATH
 from .types import Webhook
 
 if TYPE_CHECKING:
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class WebhooksApi:
-    """Endpoints under ``/api/v10/webhooks``."""
+    """Endpoints under ``/{API_VERSION_PATH}/webhooks``."""
 
     # Common event types
     EVENTS = (
@@ -28,7 +29,7 @@ class WebhooksApi:
 
     def list(self) -> list[Webhook]:
         """List all webhooks owned by the current user."""
-        r = self._c.get("/api/v10/webhooks")
+        r = self._c.get("{API_VERSION_PATH}/webhooks")
         r.raise_for_status()
         data = r.json()
         items = data.get("items", data if isinstance(data, list) else [])
@@ -37,7 +38,7 @@ class WebhooksApi:
     def create(
         self,
         url: str,
-        events: list[str],
+        events: List[str],
         *,
         filter: Optional[str] = None,
         options: Optional[dict] = None,
@@ -60,13 +61,13 @@ class WebhooksApi:
             body["filter"] = filter
         if options:
             body["options"] = options
-        r = self._c.post("/api/v10/webhooks", body=body)
+        r = self._c.post("{API_VERSION_PATH}/webhooks", body=body)
         r.raise_for_status()
         return Webhook.from_dict(r.json())
 
     def get(self, webhook_id: str) -> Webhook:
         """Get details of a specific webhook."""
-        r = self._c.get(f"/api/v10/webhooks/{webhook_id}")
+        r = self._c.get(f"{API_VERSION_PATH}/webhooks/{webhook_id}")
         r.raise_for_status()
         return Webhook.from_dict(r.json())
 
@@ -75,7 +76,7 @@ class WebhooksApi:
         webhook_id: str,
         *,
         url: Optional[str] = None,
-        events: Optional[list[str]] = None,
+        events: Optional[List[str]] = None,
         filter: Optional[str] = None,
         options: Optional[dict] = None,
     ) -> Webhook:
@@ -89,11 +90,11 @@ class WebhooksApi:
             body["filter"] = filter
         if options is not None:
             body["options"] = options
-        r = self._c.post(f"/api/v10/webhooks/{webhook_id}", body=body)
+        r = self._c.post(f"{API_VERSION_PATH}/webhooks/{webhook_id}", body=body)
         r.raise_for_status()
         return Webhook.from_dict(r.json())
 
     def delete(self, webhook_id: str) -> None:
         """Delete a webhook."""
-        r = self._c.delete(f"/api/v10/webhooks/{webhook_id}")
+        r = self._c.delete(f"{API_VERSION_PATH}/webhooks/{webhook_id}")
         r.raise_for_status()
