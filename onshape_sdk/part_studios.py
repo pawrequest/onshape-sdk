@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 
 
 class PartStudiosApi:
-    """Endpoints under ``/api/v6/partstudios``."""
+    """Endpoints under ``/api/v10/partstudios``."""
 
-    _BASE = "/api/v6/partstudios"
+    _BASE = "/api/v10/partstudios"
 
     def __init__(self, client: "OnshapeClient") -> None:
         self._c = client
