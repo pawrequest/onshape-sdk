@@ -22,9 +22,9 @@ if TYPE_CHECKING:
 class TranslationError(Exception):
     """Raised when a translation job fails or times out."""
 
-    def __init__(self, status: TranslationStatus, message: str = "") -> None:
+    def __init__(self, status: TranslationStatus, message: str = '') -> None:
         self.status = status
-        super().__init__(message or f"Translation {status.id} failed: {status.failure_reason}")
+        super().__init__(message or f'Translation {status.id} failed: {status.failure_reason}')
 
 
 class TranslationsApi:
@@ -32,25 +32,37 @@ class TranslationsApi:
 
     # Supported format names (non-exhaustive)
     FORMATS = (
-        "STEP", "IGES", "STL", "PARASOLID", "ACIS",
-        "DXF", "DWG", "PDF",
-        "SOLIDWORKS", "RHINO", "OBJ", "GLTF",
-        "CATIA", "CATIA_V4", "JT", "3MF",
+        'STEP',
+        'IGES',
+        'STL',
+        'PARASOLID',
+        'ACIS',
+        'DXF',
+        'DWG',
+        'PDF',
+        'SOLIDWORKS',
+        'RHINO',
+        'OBJ',
+        'GLTF',
+        'CATIA',
+        'CATIA_V4',
+        'JT',
+        '3MF',
     )
 
     # Element-type to path segment
     _ELEMENT_TYPES = {
-        "partstudios": "partstudios",
-        "partstudio": "partstudios",
-        "assemblies": "assemblies",
-        "assembly": "assemblies",
-        "drawings": "drawings",
-        "drawing": "drawings",
-        "blobelements": "blobelements",
-        "blob": "blobelements",
+        'partstudios': 'partstudios',
+        'partstudio': 'partstudios',
+        'assemblies': 'assemblies',
+        'assembly': 'assemblies',
+        'drawings': 'drawings',
+        'drawing': 'drawings',
+        'blobelements': 'blobelements',
+        'blob': 'blobelements',
     }
 
-    def __init__(self, client: "OnshapeClient") -> None:
+    def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client
 
     # ── Core ──────────────────────────────────────────────────────────────────
@@ -63,7 +75,7 @@ class TranslationsApi:
         eid: str,
         format_name: str,
         *,
-        element_type: str = "partstudios",
+        element_type: str = 'partstudios',
         part_ids: Optional[list[str]] = None,
         store_in_document: bool = False,
         link_document_id: Optional[str] = None,
@@ -84,19 +96,19 @@ class TranslationsApi:
             If True the result is stored as a blob element in the document.
         """
         seg = self._ELEMENT_TYPES.get(element_type.lower(), element_type.lower())
-        path = f"{API_VERSION_PATH}/{seg}{build_wvm_path(did, wvm, wvm_id, eid)}/translations"
+        path = f'{API_VERSION_PATH}/{seg}{build_wvm_path(did, wvm, wvm_id, eid)}/translations'
 
         body: dict = {
-            "formatName": format_name.upper(),
-            "storeInDocument": store_in_document,
+            'formatName': format_name.upper(),
+            'storeInDocument': store_in_document,
             **extra_body,
         }
         if part_ids:
-            body["partIds"] = part_ids
+            body['partIds'] = part_ids
         if link_document_id:
-            body["linkDocumentId"] = link_document_id
+            body['linkDocumentId'] = link_document_id
         if configuration:
-            body["configuration"] = configuration
+            body['configuration'] = configuration
 
         r = self._c.post(path, body=body)
         r.raise_for_status()
@@ -104,7 +116,7 @@ class TranslationsApi:
 
     def get_status(self, translation_id: str) -> TranslationStatus:
         """Poll the status of a translation job."""
-        r = self._c.get(f"{API_VERSION_PATH}/translations/{translation_id}")
+        r = self._c.get(f'{API_VERSION_PATH}/translations/{translation_id}')
         r.raise_for_status()
         return TranslationStatus.from_dict(r.json())
 
@@ -137,8 +149,10 @@ class TranslationsApi:
 
         while status.is_active and time.monotonic() < deadline:
             if verbose:
-                print(f"  translation {translation_id[:12]}… → {status.request_state}"
-                      f" ({status.progress:.0f}%)")
+                print(
+                    f'  translation {translation_id[:12]}… → {status.request_state}'
+                    f' ({status.progress:.0f}%)'
+                )
             time.sleep(poll_interval)
             status = self.get_status(translation_id)
 
@@ -146,10 +160,10 @@ class TranslationsApi:
             raise TranslationError(status)
         if status.is_active:
             raise TranslationError(
-                status, f"Translation {translation_id} timed out after {timeout}s"
+                status, f'Translation {translation_id} timed out after {timeout}s'
             )
         if verbose:
-            print(f"  translation {translation_id[:12]}… → DONE")
+            print(f'  translation {translation_id[:12]}… → DONE')
         return status
 
     def download(self, did: str, external_data_id: str) -> bytes:
@@ -157,11 +171,11 @@ class TranslationsApi:
 
         Handles the S3 redirect that Onshape typically returns.
         """
-        path = f"{API_VERSION_PATH}/documents/d/{did}/externaldata/{external_data_id}"
-        r = self._c.get(path, accept="application/octet-stream")
+        path = f'{API_VERSION_PATH}/documents/d/{did}/externaldata/{external_data_id}'
+        r = self._c.get(path, accept='application/octet-stream')
         # Onshape often 302-redirects to an S3 signed URL
         if r.status_code in (301, 302, 303, 307, 308):
-            r = _requests.get(r.headers["Location"])
+            r = _requests.get(r.headers['Location'])
         r.raise_for_status()
         return r.content
 
@@ -176,7 +190,7 @@ class TranslationsApi:
         format_name: str,
         *,
         output_path: Optional[str] = None,
-        element_type: str = "partstudios",
+        element_type: str = 'partstudios',
         part_ids: Optional[list[str]] = None,
         timeout: float = 120,
         poll_interval: float = 3,
@@ -196,7 +210,11 @@ class TranslationsApi:
             The raw exported file content.
         """
         status = self.create(
-            did, wvm, wvm_id, eid, format_name,
+            did,
+            wvm,
+            wvm_id,
+            eid,
+            format_name,
             element_type=element_type,
             part_ids=part_ids,
             store_in_document=False,
@@ -210,12 +228,12 @@ class TranslationsApi:
         )
         if not status.result_external_data_ids:
             raise TranslationError(
-                status, "Translation completed but returned no downloadable data."
+                status, 'Translation completed but returned no downloadable data.'
             )
         data = self.download(did, status.result_external_data_ids[0])
         if output_path:
-            with open(output_path, "wb") as f:
+            with open(output_path, 'wb') as f:
                 f.write(data)
             if verbose:
-                print(f"  saved → {output_path} ({len(data)} bytes)")
+                print(f'  saved → {output_path} ({len(data)} bytes)')
         return data

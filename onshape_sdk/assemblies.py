@@ -15,13 +15,13 @@ if TYPE_CHECKING:
 class AssembliesApi:
     """Endpoints under ``/{API_VERSION_PATH}/assemblies``."""
 
-    _BASE = f"{API_VERSION_PATH}/assemblies"
+    _BASE = f'{API_VERSION_PATH}/assemblies'
 
-    def __init__(self, client: "OnshapeClient") -> None:
+    def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client
 
     def _path(self, did: str, wvm: str, wvm_id: str, eid: str) -> str:
-        return f"{self._BASE}{build_wvm_path(did, wvm, wvm_id, eid)}"
+        return f'{self._BASE}{build_wvm_path(did, wvm, wvm_id, eid)}'
 
     # ── Definition ────────────────────────────────────────────────────────────
 
@@ -38,11 +38,11 @@ class AssembliesApi:
         """Get the full assembly definition (parts, sub-assemblies, instances)."""
         params: dict = {}
         if include_mate_features:
-            params["includeMateFeatures"] = "true"
+            params['includeMateFeatures'] = 'true'
         if include_non_solids:
-            params["includeNonSolids"] = "true"
+            params['includeNonSolids'] = 'true'
         r = self._c.get(
-            f"{self._path(did, wvm, wvm_id, eid)}/definition",
+            f'{self._path(did, wvm, wvm_id, eid)}/definition',
             query_params=params or None,
         )
         r.raise_for_status()
@@ -62,11 +62,11 @@ class AssembliesApi:
     ) -> BomTable:
         """Get the Bill of Materials for the assembly."""
         params: dict = {
-            "indented": str(indented).lower(),
-            "multiLevel": str(multi_level).lower(),
+            'indented': str(indented).lower(),
+            'multiLevel': str(multi_level).lower(),
         }
         r = self._c.get(
-            f"{self._path(did, wvm, wvm_id, eid)}/bom",
+            f'{self._path(did, wvm, wvm_id, eid)}/bom',
             query_params=params,
         )
         r.raise_for_status()
@@ -82,10 +82,10 @@ class AssembliesApi:
         eid: str,
     ) -> list[MateFeature]:
         """Get mate features in the assembly."""
-        r = self._c.get(f"{self._path(did, wvm, wvm_id, eid)}/features")
+        r = self._c.get(f'{self._path(did, wvm, wvm_id, eid)}/features')
         r.raise_for_status()
         data = r.json()
-        raw = data.get("features", data if isinstance(data, list) else [])
+        raw = data.get('features', data if isinstance(data, list) else [])
         return [MateFeature.from_dict(f) for f in raw if isinstance(f, dict)]
 
     # ── Occurrences ──────────────────────────────────────────────────────────
@@ -98,7 +98,7 @@ class AssembliesApi:
         eid: str,
     ) -> list[Occurrence]:
         """List all part occurrences with their transforms."""
-        r = self._c.get(f"{self._path(did, wvm, wvm_id, eid)}/occurrences")
+        r = self._c.get(f'{self._path(did, wvm, wvm_id, eid)}/occurrences')
         r.raise_for_status()
         return [Occurrence.from_dict(o) for o in r.json()]
 
@@ -118,16 +118,16 @@ class AssembliesApi:
     ) -> dict[str, Any]:
         """Insert a part or sub-assembly instance into the assembly."""
         body: dict = {
-            "documentId": document_id,
-            "elementId": element_id,
-            "isAssembly": is_assembly,
+            'documentId': document_id,
+            'elementId': element_id,
+            'isAssembly': is_assembly,
         }
         if part_id:
-            body["partId"] = part_id
+            body['partId'] = part_id
         if version_id:
-            body["versionId"] = version_id
+            body['versionId'] = version_id
         r = self._c.post(
-            f"{self._path(did, 'w', wid, eid)}/instances",
+            f'{self._path(did, "w", wid, eid)}/instances',
             body=body,
         )
         r.raise_for_status()
@@ -149,8 +149,8 @@ class AssembliesApi:
             (list[float] — 16-element row-major 4×4 matrix).
         """
         r = self._c.post(
-            f"{self._path(did, 'w', wid, eid)}/occurrencetransforms",
-            body={"occurrences": transforms, "isRelative": True},
+            f'{self._path(did, "w", wid, eid)}/occurrencetransforms',
+            body={'occurrences': transforms, 'isRelative': True},
         )
         r.raise_for_status()
         return r.json()

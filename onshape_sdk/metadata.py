@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class MetadataApi:
     """Endpoints under ``/{API_VERSION_PATH}/metadata``."""
 
-    def __init__(self, client: "OnshapeClient") -> None:
+    def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client
 
     def get(
@@ -34,13 +34,13 @@ class MetadataApi:
         part_id : str, optional
             If given, return metadata for that specific part within the element.
         """
-        base = f"{API_VERSION_PATH}/metadata{build_wvm_path(did, wvm, wvm_id, eid)}"
+        base = f'{API_VERSION_PATH}/metadata{build_wvm_path(did, wvm, wvm_id, eid)}'
         if part_id:
-            base += f"/p/{part_id}"
+            base += f'/p/{part_id}'
         r = self._c.get(base)
         r.raise_for_status()
         data = r.json()
-        props = data.get("properties", data if isinstance(data, list) else [])
+        props = data.get('properties', data if isinstance(data, list) else [])
         return [MetadataProperty.from_dict(p) for p in props if isinstance(p, dict)]
 
     def update(
@@ -60,9 +60,9 @@ class MetadataApi:
         properties : list[dict]
             Each dict should have ``propertyId`` and ``value``.
         """
-        base = f"{API_VERSION_PATH}/metadata{build_wvm_path(did, wvm, wvm_id, eid)}"
+        base = f'{API_VERSION_PATH}/metadata{build_wvm_path(did, wvm, wvm_id, eid)}'
         if part_id:
-            base += f"/p/{part_id}"
-        r = self._c.post(base, body={"properties": properties})
+            base += f'/p/{part_id}'
+        r = self._c.post(base, body={'properties': properties})
         r.raise_for_status()
         return r.json()

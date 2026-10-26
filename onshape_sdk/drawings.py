@@ -15,13 +15,13 @@ if TYPE_CHECKING:
 class DrawingsApi:
     """Endpoints under ``/{API_VERSION_PATH}/drawings``."""
 
-    _BASE = f"{API_VERSION_PATH}/drawings"
+    _BASE = f'{API_VERSION_PATH}/drawings'
 
-    def __init__(self, client: "OnshapeClient") -> None:
+    def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client
 
     def _path(self, did: str, wvm: str, wvm_id: str, eid: str) -> str:
-        return f"{self._BASE}{build_wvm_path(did, wvm, wvm_id, eid)}"
+        return f'{self._BASE}{build_wvm_path(did, wvm, wvm_id, eid)}'
 
     def get(
         self,
@@ -43,10 +43,10 @@ class DrawingsApi:
         eid: str,
     ) -> list[DrawingView]:
         """List all views in the drawing."""
-        r = self._c.get(f"{self._path(did, wvm, wvm_id, eid)}/views")
+        r = self._c.get(f'{self._path(did, wvm, wvm_id, eid)}/views')
         r.raise_for_status()
         data = r.json()
-        items = data if isinstance(data, list) else data.get("views", [])
+        items = data if isinstance(data, list) else data.get('views', [])
         return [DrawingView.from_dict(v) for v in items if isinstance(v, dict)]
 
     def get_view_geometry(
@@ -58,8 +58,6 @@ class DrawingsApi:
         view_id: str,
     ) -> dict[str, Any]:
         """Get the JSON geometry for a specific drawing view."""
-        r = self._c.get(
-            f"{self._path(did, wvm, wvm_id, eid)}/views/{view_id}/jsongeometry"
-        )
+        r = self._c.get(f'{self._path(did, wvm, wvm_id, eid)}/views/{view_id}/jsongeometry')
         r.raise_for_status()
         return r.json()

@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class ThumbnailsApi:
     """Endpoints under ``/{API_VERSION_PATH}/thumbnails``."""
 
-    def __init__(self, client: "OnshapeClient") -> None:
+    def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client
 
     def get_info(
@@ -34,7 +34,7 @@ class ThumbnailsApi:
             If provided, get thumbnails for a specific element; otherwise
             the document-level thumbnail is returned.
         """
-        path = f"{API_VERSION_PATH}/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}"
+        path = f'{API_VERSION_PATH}/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}'
         r = self._c.get(path)
         r.raise_for_status()
         return ThumbnailInfo.from_dict(r.json())
@@ -45,7 +45,7 @@ class ThumbnailsApi:
         wvm: str,
         wvm_id: str,
         *,
-        size: str = "300x300",
+        size: str = '300x300',
         eid: Optional[str] = None,
     ) -> bytes:
         """Download a thumbnail image as PNG bytes.
@@ -55,7 +55,7 @@ class ThumbnailsApi:
         size : str
             Desired size, e.g. ``"70x40"``, ``"300x300"``, ``"600x340"``.
         """
-        path = f"{API_VERSION_PATH}/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}/s/{size}"
-        r = self._c.get(path, accept="image/png")
+        path = f'{API_VERSION_PATH}/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}/s/{size}'
+        r = self._c.get(path, accept='image/png')
         r.raise_for_status()
         return r.content

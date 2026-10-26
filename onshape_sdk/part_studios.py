@@ -15,24 +15,22 @@ if TYPE_CHECKING:
 class PartStudiosApi:
     """Endpoints under ``/{API_VERSION_PATH}/partstudios``."""
 
-    _BASE = f"{API_VERSION_PATH}/partstudios"
+    _BASE = f'{API_VERSION_PATH}/partstudios'
 
-    def __init__(self, client: "OnshapeClient") -> None:
+    def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client
 
     def _path(self, did: str, wvm: str, wvm_id: str, eid: str) -> str:
-        return f"{self._BASE}{build_wvm_path(did, wvm, wvm_id, eid)}"
+        return f'{self._BASE}{build_wvm_path(did, wvm, wvm_id, eid)}'
 
     # ── Features ──────────────────────────────────────────────────────────────
 
-    def get_features(
-        self, did: str, wvm: str, wvm_id: str, eid: str
-    ) -> list[Feature]:
+    def get_features(self, did: str, wvm: str, wvm_id: str, eid: str) -> list[Feature]:
         """List all features in the Part Studio feature tree."""
-        r = self._c.get(f"{self._path(did, wvm, wvm_id, eid)}/features")
+        r = self._c.get(f'{self._path(did, wvm, wvm_id, eid)}/features')
         r.raise_for_status()
         data = r.json()
-        features_raw = data.get("features", data if isinstance(data, list) else [])
+        features_raw = data.get('features', data if isinstance(data, list) else [])
         return [Feature.from_dict(f) for f in features_raw if isinstance(f, dict)]
 
     def add_feature(
@@ -44,11 +42,11 @@ class PartStudiosApi:
     ) -> Feature:
         """Add a feature to the Part Studio (workspace only)."""
         r = self._c.post(
-            f"{self._path(did, 'w', wid, eid)}/features",
-            body={"feature": feature},
+            f'{self._path(did, "w", wid, eid)}/features',
+            body={'feature': feature},
         )
         r.raise_for_status()
-        return Feature.from_dict(r.json().get("feature", r.json()))
+        return Feature.from_dict(r.json().get('feature', r.json()))
 
     def update_feature(
         self,
@@ -60,11 +58,11 @@ class PartStudiosApi:
     ) -> Feature:
         """Update an existing feature."""
         r = self._c.post(
-            f"{self._path(did, 'w', wid, eid)}/features/featureid/{feature_id}",
-            body={"feature": feature},
+            f'{self._path(did, "w", wid, eid)}/features/featureid/{feature_id}',
+            body={'feature': feature},
         )
         r.raise_for_status()
-        return Feature.from_dict(r.json().get("feature", r.json()))
+        return Feature.from_dict(r.json().get('feature', r.json()))
 
     def delete_feature(
         self,
@@ -74,21 +72,17 @@ class PartStudiosApi:
         feature_id: str,
     ) -> None:
         """Delete a feature from the Part Studio."""
-        r = self._c.delete(
-            f"{self._path(did, 'w', wid, eid)}/features/featureid/{feature_id}"
-        )
+        r = self._c.delete(f'{self._path(did, "w", wid, eid)}/features/featureid/{feature_id}')
         r.raise_for_status()
 
     # ── Variables ─────────────────────────────────────────────────────────────
 
-    def get_variables(
-        self, did: str, wvm: str, wvm_id: str, eid: str
-    ) -> list[Variable]:
+    def get_variables(self, did: str, wvm: str, wvm_id: str, eid: str) -> list[Variable]:
         """Get all variables defined in the Part Studio."""
-        r = self._c.get(f"{self._path(did, wvm, wvm_id, eid)}/variables")
+        r = self._c.get(f'{self._path(did, wvm, wvm_id, eid)}/variables')
         r.raise_for_status()
         data = r.json()
-        items = data if isinstance(data, list) else data.get("variables", [])
+        items = data if isinstance(data, list) else data.get('variables', [])
         return [Variable.from_dict(v) for v in items if isinstance(v, dict)]
 
     def set_variables(
@@ -106,21 +100,19 @@ class PartStudiosApi:
             Each dict should have at least ``name`` and ``value`` / ``expression``.
         """
         r = self._c.post(
-            f"{self._path(did, 'w', wid, eid)}/variables",
+            f'{self._path(did, "w", wid, eid)}/variables',
             body=variables,
         )
         r.raise_for_status()
         data = r.json()
-        items = data if isinstance(data, list) else data.get("variables", [])
+        items = data if isinstance(data, list) else data.get('variables', [])
         return [Variable.from_dict(v) for v in items if isinstance(v, dict)]
 
     # ── Configuration ─────────────────────────────────────────────────────────
 
-    def get_configuration(
-        self, did: str, wvm: str, wvm_id: str, eid: str
-    ) -> dict[str, Any]:
+    def get_configuration(self, did: str, wvm: str, wvm_id: str, eid: str) -> dict[str, Any]:
         """Get the configuration definition for the Part Studio."""
-        r = self._c.get(f"{self._path(did, wvm, wvm_id, eid)}/configuration")
+        r = self._c.get(f'{self._path(did, wvm, wvm_id, eid)}/configuration')
         r.raise_for_status()
         return r.json()
 
@@ -145,11 +137,11 @@ class PartStudiosApi:
         queries : dict, optional
             Named geometric queries to bind.
         """
-        body: dict = {"script": script}
+        body: dict = {'script': script}
         if queries:
-            body["queries"] = queries
+            body['queries'] = queries
         r = self._c.post(
-            f"{self._path(did, wvm, wvm_id, eid)}/featurescript",
+            f'{self._path(did, wvm, wvm_id, eid)}/featurescript',
             body=body,
         )
         r.raise_for_status()
@@ -171,12 +163,12 @@ class PartStudiosApi:
         params: dict = dict(extra_params)
         if part_ids:
             if isinstance(part_ids, list):
-                part_ids = ",".join(part_ids)
-            params["partIds"] = part_ids
+                part_ids = ','.join(part_ids)
+            params['partIds'] = part_ids
         r = self._c.get(
-            f"{self._path(did, wvm, wvm_id, eid)}/{suffix}",
+            f'{self._path(did, wvm, wvm_id, eid)}/{suffix}',
             query_params=params or None,
-            accept="application/octet-stream",
+            accept='application/octet-stream',
         )
         r.raise_for_status()
         return r.content
@@ -189,14 +181,18 @@ class PartStudiosApi:
         eid: str,
         *,
         part_ids: Optional[str | list[str]] = None,
-        mode: str = "binary",
-        units: str = "millimeter",
+        mode: str = 'binary',
+        units: str = 'millimeter',
         angle_tolerance: float = 0.1090830782496456,
         chord_tolerance: float = 0.010000000000000002,
     ) -> bytes:
         """Export STL mesh data."""
         return self._export(
-            did, wvm, wvm_id, eid, "exportstl",
+            did,
+            wvm,
+            wvm_id,
+            eid,
+            'exportstl',
             part_ids=part_ids,
             mode=mode,
             units=units,
@@ -212,11 +208,15 @@ class PartStudiosApi:
         eid: str,
         *,
         part_ids: Optional[str | list[str]] = None,
-        version: str = "0",
+        version: str = '0',
     ) -> bytes:
         """Export Parasolid (.x_t) data."""
         return self._export(
-            did, wvm, wvm_id, eid, "exportparasolid",
+            did,
+            wvm,
+            wvm_id,
+            eid,
+            'exportparasolid',
             part_ids=part_ids,
             version=version,
         )
@@ -232,6 +232,10 @@ class PartStudiosApi:
     ) -> bytes:
         """Export DXF (works best for flat / sheet-metal parts)."""
         return self._export(
-            did, wvm, wvm_id, eid, "exportdxf",
+            did,
+            wvm,
+            wvm_id,
+            eid,
+            'exportdxf',
             part_ids=part_ids,
         )

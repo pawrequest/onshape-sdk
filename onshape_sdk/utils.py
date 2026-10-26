@@ -11,10 +11,11 @@ PROJECT_ROOT = Path(__file__).parent.parent
 
 class OnshapeIds(TypedDict):
     """IDs parsed from an Onshape document URL."""
-    did: str       # document ID
+
+    did: str  # document ID
     wvm_type: str  # 'w' (workspace), 'v' (version), or 'm' (microversion)
-    wvm_id: str    # workspace / version / microversion ID
-    eid: str       # element ID
+    wvm_id: str  # workspace / version / microversion ID
+    eid: str  # element ID
 
 
 def parse_onshape_url(url: str) -> OnshapeIds:
@@ -36,12 +37,12 @@ def parse_onshape_url(url: str) -> OnshapeIds:
     ValueError
         If the URL doesn't match the expected Onshape pattern.
     """
-    pattern = r"documents/([a-f0-9]+)/([wvm])/([a-f0-9]+)/e/([a-f0-9]+)"
+    pattern = r'documents/([a-f0-9]+)/([wvm])/([a-f0-9]+)/e/([a-f0-9]+)'
     match = re.search(pattern, url)
     if not match:
         raise ValueError(
-            "Could not parse Onshape URL. Expected format:\n"
-            "https://cad.onshape.com/documents/<did>/<w|v|m>/<wid>/e/<eid>"
+            'Could not parse Onshape URL. Expected format:\n'
+            'https://cad.onshape.com/documents/<did>/<w|v|m>/<wid>/e/<eid>'
         )
     did, wvm_type, wvm_id, eid = match.groups()
     return OnshapeIds(did=did, wvm_type=wvm_type, wvm_id=wvm_id, eid=eid)
@@ -66,7 +67,7 @@ def build_wvm_path(
     eid : str, optional
         Element ID.  If *None* the ``/e/…`` suffix is omitted.
     """
-    path = f"/d/{did}/{wvm}/{wvm_id}"
+    path = f'/d/{did}/{wvm}/{wvm_id}'
     if eid:
-        path += f"/e/{eid}"
+        path += f'/e/{eid}'
     return path
