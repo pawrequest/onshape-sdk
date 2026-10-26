@@ -14,10 +14,12 @@ Example:
 import sys
 
 from onshape_sdk import OnshapeClient, parse_onshape_url
+from onshape_sdk.auth import OnshapeSettings
 
 
 def get_parts_list(url: str):
-    client = OnshapeClient.from_env()
+    settings = OnshapeSettings()
+    client = OnshapeClient(settings=settings)
     ids = parse_onshape_url(url)
     did = ids["did"]
     wvm = ids["wvm_type"]

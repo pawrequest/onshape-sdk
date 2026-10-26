@@ -26,6 +26,8 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+  "httpx>=0.28.1",
+  "pydantic>=2.10.6",
   "python-dotenv>=1.0",
   "requests>=2.28",
 ]
