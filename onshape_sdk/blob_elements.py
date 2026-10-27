@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 class BlobElementsApi:
     """Endpoints under ``/{API_VERSION_PATH}/blobelements``."""
 
-    _BASE = f'{API_VERSION_PATH}/blobelements'
+    _BASE = f'/blobelements'
 
     def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client

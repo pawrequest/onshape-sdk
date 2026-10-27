@@ -183,8 +183,8 @@ class OnshapeClient:
         print(f'  Base URL   : {self.base_url}')
 
         # Test 1 — session info
-        print(f'\n  [1/2] GET /{API_VERSION_PATH}/users/sessioninfo')
-        r1 = self.get('{API_VERSION_PATH}/users/sessioninfo')
+        print(f'\n  [1/2] GET /users/sessioninfo')
+        r1 = self.get(f'/users/sessioninfo')
         if r1.status_code == 200:
             me = r1.json()
             print(f'    ✅ Authenticated as: {me.get("name")} ({me.get("email")})')
@@ -199,8 +199,8 @@ class OnshapeClient:
                 print('    → 204 No Content — keys may be invalid or expired')
 
         # Test 2 — list documents
-        print(f'\n  [2/2] GET /{API_VERSION_PATH}/documents?limit=1')
-        r2 = self.get(f'{API_VERSION_PATH}/documents', query_params={'filter': 0, 'limit': 1})
+        print(f'\n  [2/2] GET /documents?limit=1')
+        r2 = self.get(f'/documents', query_params={'filter': 0, 'limit': 1})
         if r2.status_code == 200:
             items = r2.json().get('items', [])
             print(f'    ✅ Read scope OK — found {len(items)} document(s)')

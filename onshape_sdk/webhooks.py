@@ -67,7 +67,7 @@ class WebhooksApi:
 
     def get(self, webhook_id: str) -> Webhook:
         """Get details of a specific webhook."""
-        r = self._c.get(f'{API_VERSION_PATH}/webhooks/{webhook_id}')
+        r = self._c.get(f'/webhooks/{webhook_id}')
         r.raise_for_status()
         return Webhook.from_dict(r.json())
 
@@ -90,11 +90,11 @@ class WebhooksApi:
             body['filter'] = filter
         if options is not None:
             body['options'] = options
-        r = self._c.post(f'{API_VERSION_PATH}/webhooks/{webhook_id}', body=body)
+        r = self._c.post(f'/webhooks/{webhook_id}', body=body)
         r.raise_for_status()
         return Webhook.from_dict(r.json())
 
     def delete(self, webhook_id: str) -> None:
         """Delete a webhook."""
-        r = self._c.delete(f'{API_VERSION_PATH}/webhooks/{webhook_id}')
+        r = self._c.delete(f'/webhooks/{webhook_id}')
         r.raise_for_status()

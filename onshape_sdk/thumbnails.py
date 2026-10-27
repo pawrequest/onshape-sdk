@@ -34,7 +34,7 @@ class ThumbnailsApi:
             If provided, get thumbnails for a specific element; otherwise
             the document-level thumbnail is returned.
         """
-        path = f'{API_VERSION_PATH}/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}'
+        path = f'/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}'
         r = self._c.get(path)
         r.raise_for_status()
         return ThumbnailInfo.from_dict(r.json())
@@ -55,7 +55,7 @@ class ThumbnailsApi:
         size : str
             Desired size, e.g. ``"70x40"``, ``"300x300"``, ``"600x340"``.
         """
-        path = f'{API_VERSION_PATH}/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}/s/{size}'
+        path = f'/thumbnails{build_wvm_path(did, wvm, wvm_id, eid)}/s/{size}'
         r = self._c.get(path, accept='image/png')
         r.raise_for_status()
         return r.content

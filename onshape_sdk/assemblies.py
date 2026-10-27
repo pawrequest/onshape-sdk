@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class AssembliesApi:
     """Endpoints under ``/{API_VERSION_PATH}/assemblies``."""
 
-    _BASE = f'{API_VERSION_PATH}/assemblies'
+    _BASE = f'/assemblies'
 
     def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client

@@ -34,7 +34,7 @@ class MetadataApi:
         part_id : str, optional
             If given, return metadata for that specific part within the element.
         """
-        base = f'{API_VERSION_PATH}/metadata{build_wvm_path(did, wvm, wvm_id, eid)}'
+        base = f'/metadata{build_wvm_path(did, wvm, wvm_id, eid)}'
         if part_id:
             base += f'/p/{part_id}'
         r = self._c.get(base)
@@ -60,7 +60,7 @@ class MetadataApi:
         properties : list[dict]
             Each dict should have ``propertyId`` and ``value``.
         """
-        base = f'{API_VERSION_PATH}/metadata{build_wvm_path(did, wvm, wvm_id, eid)}'
+        base = f'/metadata{build_wvm_path(did, wvm, wvm_id, eid)}'
         if part_id:
             base += f'/p/{part_id}'
         r = self._c.post(base, body={'properties': properties})
