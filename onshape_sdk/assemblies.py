@@ -42,7 +42,7 @@ class AssembliesApi:
         if include_non_solids:
             params['includeNonSolids'] = 'true'
         r = self._c.get(
-            f'{self._path(did, wvm, wvm_id, eid)}/definition',
+            f'{self._path(did, wvm, wvm_id, eid)}',
             query_params=params or None,
         )
         r.raise_for_status()
