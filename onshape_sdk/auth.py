@@ -5,6 +5,7 @@ import string
 from collections.abc import Generator
 from email.utils import formatdate
 from functools import cached_property
+from pathlib import Path
 
 import httpx
 from pydantic import SecretStr, Field
@@ -34,6 +35,8 @@ class OnshapeSettings(BaseSettings):
     root_url: str = Field('https://cad.onshape.com/api', alias='ONSHAPE_BASE_URL')
     headers: dict = Field(default_factory=default_headers)
     max_retries: int = 3
+    onshape_test_url_assy: Path | None = None
+    onshape_test_url_part: Path | None = None
 
     def auth(self):
         return OnshapeHmacAuth(self.access_key, self.secret_key)
