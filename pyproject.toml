@@ -38,6 +38,10 @@ Homepage = "https://github.com/zachariahsharma/onshape-sdk"
 Documentation = "https://zachariahsharma.github.io/onshape-sdk/"
 Issues = "https://github.com/zachariahsharma/onshape-sdk/issues"
 
+[project.scripts]
+onshape-sdk = "onshape_sdk.main:main"
+
+
 [tool.setuptools]
 include-package-data = true
 

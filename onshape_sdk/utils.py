@@ -77,6 +77,17 @@ class Named(Protocol):
     name: str
 
 
-def filter_named[T: Named](named: list[T], search_text: str) -> list[T]:
-    filtered = [_ for _ in named if search_text.lower() in _.name.lower()]
+def filter_named[T: Named](named: list[T], filter_text: str) -> list[T]:
+    filtered = [_ for _ in named if filter_text.lower() in _.name.lower()]
     return filtered
+
+
+def save_bytes(exported_bytes: bytes, save_path: Path, save_name: str = 'Onshape Export'):
+    save_path = save_path.resolve()
+    if save_path.is_dir():
+        save_path.mkdir(parents=True, exist_ok=True)
+        save_path = save_path / f'{save_name}'
+        print(f'added {save_name} to given dir. Saving {save_path}')
+    save_path = save_path.with_suffix('.stl')
+    print(f'Saving to {save_path}')
+    save_path.write_bytes(exported_bytes)
