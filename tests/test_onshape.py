@@ -4,8 +4,9 @@ from pathlib import Path
 import pytest
 from dotenv import load_dotenv
 
-from onshape_sdk import OnshapeClient
+from onshape_sdk import OnshapeClient, Part
 from onshape_sdk.ids import OnshapeIdsTup
+from onshape_sdk.utils import filter_named
 
 env = Path(__file__).parent.parent / '.env'
 load_dotenv(dotenv_path=env, override=True)
@@ -58,20 +59,22 @@ def test_assy_def(client, path_ids_assy):
     print(res.root_assembly)
 
 
-def get_part_by_name(client, path_ids_parts, search_text = 'test'):
+def get_part_by_name(client, path_ids_parts, search_text='test'):
     parts = client.parts.list(*path_ids_parts)
-    filtered = [_ for _ in parts if search_text.lower() in _.name.lower()]
-    ...
+    filtered = filter_named(parts, search_text)
     return filtered
 
 
 def test_get_part_by_name(client, path_ids_parts):
-    parts = get_part_by_name(client, path_ids_parts)
+    parts = client.parts.list(*path_ids_parts)
+    assert all(isinstance(part, Part) for part in parts)
+    filtered = get_part_by_name(client, path_ids_parts)
     print(parts)
-    ...
+    assert len(parts) >  len(filtered) >  0
 
 
 def test_export_stl(client, path_ids_parts):
     result = client.part_studios.export_stl(*path_ids_parts, part_ids='')
+    assert isinstance(result, bytes)
     with open('ONHAPE_TEST.stl', 'wb') as f:
         f.write(result)
