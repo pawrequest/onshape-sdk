@@ -46,3 +46,8 @@ include = ["onshape_sdk", "onshape_sdk.*"]
 
 [tool.setuptools.package-data]
 onshape_sdk = ["py.typed"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
