@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import TypedDict
+from typing import TypedDict, Protocol
 
 PROJECT_ROOT = Path(__file__).parent.parent
 
@@ -71,3 +71,12 @@ def build_wvm_path(
     if eid:
         path += f'/e/{eid}'
     return path
+
+
+class Named(Protocol):
+    name: str
+
+
+def filter_named[T: Named](named: list[T], search_text: str) -> list[T]:
+    filtered = [_ for _ in named if search_text.lower() in _.name.lower()]
+    return filtered
