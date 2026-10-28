@@ -170,6 +170,8 @@ class PartStudiosApi:
             query_params=params or None,
             accept='application/octet-stream',
         )
+        if r.has_redirect_location:
+            r = self._c.get(r.headers['Location'])
         r.raise_for_status()
         return r.content
 
@@ -192,7 +194,7 @@ class PartStudiosApi:
             wvm,
             wvm_id,
             eid,
-            'exportstl',
+            'stl',
             part_ids=part_ids,
             mode=mode,
             units=units,
