@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 
 class DocumentsApi:
     """Endpoints under ``/documents``."""
+    _BASE = '/documents'
 
     def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client
@@ -37,7 +38,7 @@ class DocumentsApi:
             0 = owned by me, 1 = created by me, 2 = shared with me, …
         """
         r = self._c.get(
-            f'/documents',
+            f'{self._BASE}',
             query_params={
                 'filter': owner_type,
                 'limit': limit,
@@ -64,7 +65,7 @@ class DocumentsApi:
     ) -> PaginatedList[Document]:
         """Full-text search across documents."""
         r = self._c.post(
-            f'/documents/search',
+            f'{self._BASE}/search',
             body={'rawQuery': query, 'limit': limit, 'offset': offset},
         )
         r.raise_for_status()
@@ -74,20 +75,20 @@ class DocumentsApi:
 
     def get_elements(self, did: str, wvm: str, wvm_id: str) -> list[Element]:
         """List all elements (tabs) in a document workspace/version."""
-        path = f'/documents{build_wvm_path(did, wvm, wvm_id)}/elements'
+        path = f'{self._BASE}{build_wvm_path(did, wvm, wvm_id)}/elements'
         r = self._c.get(path)
         r.raise_for_status()
         return [Element.from_dict(e) for e in r.json()]
 
     def get_versions(self, did: str) -> list[DocumentVersion]:
         """List all versions of a document."""
-        r = self._c.get(f'/documents/d/{did}/versions')
+        r = self._c.get(f'{self._BASE}/d/{did}/versions')
         r.raise_for_status()
         return [DocumentVersion.from_dict(v) for v in r.json()]
 
     def get_workspaces(self, did: str) -> list[Workspace]:
         """List workspaces (branches) of a document."""
-        r = self._c.get(f'/documents/d/{did}/workspaces')
+        r = self._c.get(f'{self._BASE}/d/{did}/workspaces')
         r.raise_for_status()
         return [Workspace.from_dict(w) for w in r.json()]
 
@@ -110,7 +111,7 @@ class DocumentsApi:
             body['ownerId'] = owner_id
         if owner_type is not None:
             body['ownerType'] = owner_type
-        r = self._c.post('{API_VERSION_PATH}/documents', body=body)
+        r = self._c.post(f'{self._BASE}', body=body)
         r.raise_for_status()
         return Document.from_dict(r.json())
 
@@ -126,14 +127,14 @@ class DocumentsApi:
         body: dict = {'name': name, 'documentId': did, 'workspaceId': wid}
         if description:
             body['description'] = description
-        r = self._c.post(f'/documents/d/{did}/versions', body=body)
+        r = self._c.post(f'{self._BASE}/d/{did}/versions', body=body)
         r.raise_for_status()
         return DocumentVersion.from_dict(r.json())
 
     def delete(self, did: str, *, forever: bool = False) -> None:
         """Move a document to trash (or delete permanently if *forever*)."""
         r = self._c.delete(
-            f'/documents/{did}',
+            f'{self._BASE}/{did}',
             query_params={'forever': str(forever).lower()} if forever else None,
         )
         r.raise_for_status()
