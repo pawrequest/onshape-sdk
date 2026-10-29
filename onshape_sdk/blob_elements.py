@@ -69,13 +69,13 @@ class BlobElementsApi:
         # Build multipart headers manually since Onshape expects
         # the HMAC to be signed with application/json content type
         # but the actual upload is multipart
-        headers = self._c._sign('POST', path, content_type='application/json')
-        del headers['Content-Type']  # let requests set the multipart boundary
+        # headers = self._c._sign('POST', path, content_type='application/json')
+        # del headers['Content-Type']  # let requests set the multipart boundary
 
         with open(file_path, 'rb') as f:
             files = {'file': (filename, f, content_type)}
             url = self._c.base_url + path
-            r = _requests.post(url, headers=headers, files=files)
+            r = _requests.post(url, files=files)
 
         r.raise_for_status()
         return Element.from_dict(r.json())
