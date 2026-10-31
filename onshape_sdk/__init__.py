@@ -3,13 +3,14 @@
 Quick start
 -----------
 >>> from onshape_sdk import OnshapeClient, parse_onshape_url
->>> client = OnshapeClient.from_env()  # reads .env
+>>> client = OnshapeClient()  # reads .env
 >>> client.test_auth()
 >>> ids = parse_onshape_url("https://cad.onshape.com/documents/…/w/…/e/…")
 >>> parts = client.parts.list(ids["did"], ids["wvm_type"], ids["wvm_id"], ids["eid"])
 """
 
 from .client import OnshapeClient
+from .settings import OnshapeSettings
 from .utils import OnshapeIds, build_wvm_path, parse_onshape_url
 
 # Types — re-exported so users can do ``from onshape_sdk import Document, Part, …``
@@ -54,6 +55,7 @@ from .webhooks import WebhooksApi
 __all__ = [
     # Client
     'OnshapeClient',
+    'OnshapeSettings',
     # Utils
     'parse_onshape_url',
     'build_wvm_path',

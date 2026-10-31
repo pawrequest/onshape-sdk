@@ -3,7 +3,7 @@ from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
 from onshape_sdk import OnshapeClient
-from onshape_sdk.auth import OnshapeSettings
+from onshape_sdk.settings import OnshapeSettings
 from onshape_sdk.client_routines import export_from_ps
 from onshape_sdk.ids import OnshapeIdsTup
 from onshape_sdk.utils import PROJECT_ROOT
