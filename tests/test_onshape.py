@@ -40,10 +40,12 @@ def client() -> OnshapeClient:
 
 @pytest.fixture(autouse=True)
 def capsys_out(capsys):
-    yield
-    with capsys.disabled():
-        stdout = capsys.readouterr().out
-        print(stdout)
+    try:
+        yield
+    finally:
+        with capsys.disabled():
+            stdout = capsys.readouterr().out
+            print(stdout)
 
 
 def test_auth(client):
