@@ -24,7 +24,8 @@ def export_from_ps(
     print(f'Exporting {[_.name for _ in filtered]}')
     exported_bytes = client.part_studios.export_stl(*path_ids, part_ids=part_ids)
     if save_path:
-        save_path = save_path.resolve()
+        if save_path.is_dir():
+            save_path = save_path / f'{filtered[0].name}.stl'
         save_bytes(exported_bytes, save_path)
     return exported_bytes
 
