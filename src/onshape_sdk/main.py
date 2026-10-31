@@ -11,14 +11,14 @@ from .utils import PROJECT_ROOT
 
 def cmd_export(client: OnshapeClient, args: Namespace) -> None:
     ids = OnshapeIdsTup.from_url(url=args.url)
-    export_from_ps(
+    output_path = export_from_ps(
         client=client,
         path_ids=ids,
         save_path=args.output,
         filter_text=args.parts_filter,
     )
     if args.launch_exported:
-        os.startfile(args.output)
+        os.startfile(output_path)
 
 
 def build_parser() -> ArgumentParser:

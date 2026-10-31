@@ -19,7 +19,7 @@ def export_from_ps(
     path_ids: OnshapeIdsTup,
     save_path: Path | None = None,
     filter_text: str = '',
-) -> bytes:
+) -> bytes | Path:
     filtered = get_parts_by_name(client, path_ids, filter_text)
     part_ids = [part.part_id for part in filtered]
     print(f'Exporting {[_.name for _ in filtered]}')
@@ -28,4 +28,5 @@ def export_from_ps(
         if save_path.is_dir():
             save_path = save_path / f'{filtered[0].name}.stl'
         save_bytes(exported_bytes, save_path)
+        return save_path
     return exported_bytes
