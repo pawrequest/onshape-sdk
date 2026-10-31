@@ -6,7 +6,7 @@ Upstream Documentation: [https://zachariahsharma.github.io/onshape-sdk/](https:/
 
 Upstream didn't work for some routes and it's api_version is old, so i forked.
 
-I have not tested all routes, ymmv.  
+I have not tested all routes, ymmv.
 
 Major Fork changes:
 
@@ -14,6 +14,7 @@ Major Fork changes:
 - Fixed some broken routes
 - Added pydantic-settings
 - Changed the auth setup. (`onshape_sdk.auth.OnshapeHmacAuth`)
+- uv native
 
 ## Install
 
@@ -24,7 +25,8 @@ git clone <rep-url>
 or don't and use uv:
 
 ```shell
-uv tool run --from git+https://github.com/pawrequest/onshape-sdk onshape-sdk export
+# export optionally name-filtered parts from a partstudio
+uv tool run --from onshape-sdk-pr onshape-sdk export -u <partstudio url> -o <output_path> -pf <filter_text> 
 ```
 
 ### Configuration
