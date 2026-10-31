@@ -4,52 +4,51 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "onshape-sdk"
-version = "0.1.1"
+version = "0.1.2"
 description = "A lightweight, typed Python SDK for the Onshape REST API"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.13"
 license = "MIT"
 authors = [
-  { name = "Zach Sharma", email = "zachariah.sharma@gmail.com" }
+    { name = "Zach Sharma", email = "zachariah.sharma@gmail.com" },
+    { name = "PawRequest", email = "nomail@gmail.com" }
 ]
 keywords = ["onshape", "cad", "api", "sdk", "rest"]
 classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Intended Audience :: Developers",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Topic :: Scientific/Engineering",
-  "Topic :: Software Development :: Libraries :: Python Modules",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-  "httpx>=0.28.1",
-  "pydantic>=2.10.6",
-  "pydantic-settings>=2.8.1",
-  "python-dotenv>=1.0",
-  "requests>=2.28",
+    "httpx>=0.28.1",
+    "pydantic>=2.14.2",
+    "pydantic-settings>=2.16.2",
+    "python-dotenv>=1.0",
+    "requests>=2.28",
 ]
 
 [project.urls]
-Homepage = "https://github.com/zachariahsharma/onshape-sdk"
-Documentation = "https://zachariahsharma.github.io/onshape-sdk/"
-Issues = "https://github.com/zachariahsharma/onshape-sdk/issues"
+Homepage = "https://github.com/pawrequest/onshape-sdk"
 
 [project.scripts]
 onshape-sdk = "onshape_sdk.main:main"
 
 
-[tool.setuptools]
-include-package-data = true
+#[tool.setuptools]
+#include-package-data = true
 
-[tool.setuptools.packages.find]
-include = ["onshape_sdk", "onshape_sdk.*"]
-
-[tool.setuptools.package-data]
-onshape_sdk = ["py.typed"]
+#[tool.setuptools.packages.find]
+#include = ["onshape_sdk", "onshape_sdk.*"]
+#
+#[tool.setuptools.package-data]
+#onshape_sdk = ["py.typed"]
 
 [dependency-groups]
 dev = [
