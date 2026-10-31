@@ -178,7 +178,7 @@ with open("output.step", "wb") as f:
 ## Error Handling
 
 ```python
-from src.onshape_sdk import TranslationError
+from onshape_sdk import TranslationError
 
 try:
     client.translations.export(

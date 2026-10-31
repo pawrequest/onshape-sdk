@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from .api_version import API_VERSION_PATH
 from .types import DrawingView
 from .utils import build_wvm_path
 
@@ -15,7 +14,7 @@ if TYPE_CHECKING:
 class DrawingsApi:
     """Endpoints under ``/{API_VERSION_PATH}/drawings``."""
 
-    _BASE = f'/drawings'
+    _BASE = '/drawings'
 
     def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client

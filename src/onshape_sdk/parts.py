@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Optional
 
-from .api_version import API_VERSION_PATH
 from .types import Part
 from .utils import build_wvm_path
 
@@ -14,7 +13,9 @@ if TYPE_CHECKING:
 
 class PartsApi:
     """Endpoints under ``/{API_VERSION_PATH}/parts``."""
+
     _BASE = '/parts'
+
     def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client
 
@@ -94,7 +95,7 @@ class PartsApi:
         eid: str,
         *,
         part_id: Optional[str] = None,
-        mass_or_body: str = 'mass'
+        mass_or_body: str = 'mass',
     ) -> dict[str, Any]:
         if mass_or_body == 'mass':
             path = f'{self._path(did, wvm, wvm_id, eid)}/massproperties'

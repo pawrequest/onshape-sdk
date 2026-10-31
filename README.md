@@ -61,14 +61,15 @@ Commands:
 onshape-sdk export /
     -u <url-to-partstudio> /
     -o <optional output file or dir> /  # save exported stl bytes
-    -pf <optional part-name filter>
+    -pf <optional part-name filter> /
+    -l <optionally launch the exported file in system default app>
 
 ```
 
 ### python
 
 ```python
-from src.onshape_sdk import OnshapeClient, OnshapeIdsTup, OnshapeSettings
+from onshape_sdk import OnshapeClient, OnshapeIdsTup, OnshapeSettings
 
 settings = OnshapeSettings()  # optional - otherwise read default .env location or env_vars 
 client = OnshapeClient(settings)  # or just `OnshapeClient() for defaults`

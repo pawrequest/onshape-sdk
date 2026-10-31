@@ -1,8 +1,9 @@
 from pathlib import Path
 
-from src.onshape_sdk import OnshapeClient, Part
-from src.onshape_sdk.ids import OnshapeIdsTup
-from src.onshape_sdk.utils import filter_named, save_bytes
+from .types import Part
+from .client import OnshapeClient
+from .ids import OnshapeIdsTup
+from .utils import filter_named, save_bytes
 
 
 def get_parts_by_name(
@@ -28,5 +29,3 @@ def export_from_ps(
             save_path = save_path / f'{filtered[0].name}.stl'
         save_bytes(exported_bytes, save_path)
     return exported_bytes
-
-

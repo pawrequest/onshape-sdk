@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Optional
 
-from .api_version import API_VERSION_PATH
 from .types import Document, DocumentVersion, Element, PaginatedList, Workspace
 from .utils import build_wvm_path
 
@@ -14,6 +13,7 @@ if TYPE_CHECKING:
 
 class DocumentsApi:
     """Endpoints under ``/documents``."""
+
     _BASE = '/documents'
 
     def __init__(self, client: 'OnshapeClient') -> None:

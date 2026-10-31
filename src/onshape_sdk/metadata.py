@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Optional
 
-from .api_version import API_VERSION_PATH
 from .types import MetadataProperty
 from .utils import build_wvm_path
 

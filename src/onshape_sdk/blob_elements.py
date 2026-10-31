@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING, Optional
+from typing import Optional, TYPE_CHECKING
 
 import requests as _requests
 
-from .api_version import API_VERSION_PATH
 from .types import Element
 from .utils import build_wvm_path
 
@@ -18,7 +17,7 @@ if TYPE_CHECKING:
 class BlobElementsApi:
     """Endpoints under ``/{API_VERSION_PATH}/blobelements``."""
 
-    _BASE = f'/blobelements'
+    _BASE = '/blobelements'
 
     def __init__(self, client: 'OnshapeClient') -> None:
         self._c = client

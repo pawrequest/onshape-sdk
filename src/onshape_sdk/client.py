@@ -18,7 +18,7 @@ from urllib.parse import urlencode
 
 import httpx
 
-from src.onshape_sdk.settings import OnshapeSettings
+from .settings import OnshapeSettings
 
 
 class OnshapeClient:

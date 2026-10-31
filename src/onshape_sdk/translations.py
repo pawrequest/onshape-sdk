@@ -11,7 +11,6 @@ from typing import TYPE_CHECKING, Any, Optional
 
 import requests as _requests
 
-from .api_version import API_VERSION_PATH
 from .types import TranslationStatus
 from .utils import build_wvm_path
 

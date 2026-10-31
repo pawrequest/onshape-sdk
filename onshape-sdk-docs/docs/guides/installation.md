@@ -39,7 +39,7 @@ Generate API keys at [https://dev-portal.onshape.com/keys](https://dev-portal.on
 ## Verify Installation
 
 ```python
-from src.onshape_sdk import OnshapeClient
+from onshape_sdk import OnshapeClient
 
 client = OnshapeClient.from_env()
 result = client.test_auth()

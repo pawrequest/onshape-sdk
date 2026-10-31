@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Optional, List
 
-from .api_version import API_VERSION_PATH
 from .types import Webhook
 
 if TYPE_CHECKING:

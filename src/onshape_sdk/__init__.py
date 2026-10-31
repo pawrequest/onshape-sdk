@@ -2,7 +2,7 @@
 
 Quick start
 -----------
->>> from src.onshape_sdk import OnshapeClient, parse_onshape_url
+>>> from onshape_sdk import OnshapeClient, parse_onshape_url
 >>> client = OnshapeClient()  # reads .env
 >>> client.test_auth()
 >>> ids = parse_onshape_url("https://cad.onshape.com/documents/…/w/…/e/…")

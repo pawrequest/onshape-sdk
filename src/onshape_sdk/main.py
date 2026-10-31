@@ -2,11 +2,11 @@ import os
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
-from src.onshape_sdk import OnshapeClient
-from src.onshape_sdk.settings import OnshapeSettings
-from src.onshape_sdk.client_routines import export_from_ps
-from src.onshape_sdk.ids import OnshapeIdsTup
-from src.onshape_sdk.utils import PROJECT_ROOT
+from .client import OnshapeClient
+from .settings import OnshapeSettings
+from .client_routines import export_from_ps
+from .ids import OnshapeIdsTup
+from .utils import PROJECT_ROOT
 
 
 def cmd_export(client: OnshapeClient, args: Namespace) -> None:
@@ -33,7 +33,7 @@ def build_parser() -> ArgumentParser:
     export.add_argument('--url', '-u', required=True, type=str)
     export.add_argument('--output', '-o', required=True, type=Path)
     export.add_argument('--parts-filter', '-pf', default='', type=str)
-    export.add_argument('--launch-exported', '-l', action="store_true")
+    export.add_argument('--launch-exported', '-l', action='store_true')
     export.set_defaults(cmd_func=cmd_export)
 
     # Adding another subcommand is just more of the same:

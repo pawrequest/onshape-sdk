@@ -5,9 +5,9 @@ from pprint import pprint
 import pytest
 from dotenv import load_dotenv
 
-from src.onshape_sdk import AssemblyDefinition, OnshapeClient, Part
-from src.onshape_sdk import OnshapeIdsTup
-from src.onshape_sdk.client_routines import export_from_ps, get_parts_by_name
+from onshape_sdk import AssemblyDefinition, OnshapeClient, Part
+from onshape_sdk import OnshapeIdsTup
+from onshape_sdk.client_routines import export_from_ps, get_parts_by_name
 
 env = Path(__file__).parent.parent / '.env'
 load_dotenv(dotenv_path=env, override=True)
@@ -66,7 +66,7 @@ def test_get_part_by_name(client, path_ids_parts):
     filtered = get_parts_by_name(client, path_ids_parts)
     print('FILTERED PARTS:')
     pprint(filtered)
-    assert len(parts) >  len(filtered) >  0
+    assert len(parts) > len(filtered) > 0
 
 
 def test_export_stl(client, path_ids_parts):

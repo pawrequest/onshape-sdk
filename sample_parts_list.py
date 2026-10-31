@@ -13,8 +13,8 @@ Example:
 
 import sys
 
-from src.onshape_sdk import OnshapeClient, parse_onshape_url
-from src.onshape_sdk import OnshapeSettings
+from onshape_sdk import OnshapeClient, parse_onshape_url
+from onshape_sdk import OnshapeSettings
 
 
 def get_parts_list(url: str):
