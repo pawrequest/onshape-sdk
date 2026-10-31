@@ -11,7 +11,7 @@ A lightweight, fully-typed Python SDK for the Onshape REST API. Provides HMAC-SH
 ## Quick Start
 
 ```python
-from onshape_sdk import OnshapeClient, parse_onshape_url
+from src.onshape_sdk import OnshapeClient, parse_onshape_url
 
 # Create client from .env file (ONSHAPE_ACCESS_KEY, ONSHAPE_SECRET_KEY)
 client = OnshapeClient.from_env()

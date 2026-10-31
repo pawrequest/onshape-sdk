@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-from onshape_sdk import build_wvm_path, parse_onshape_url
+from src.onshape_sdk import build_wvm_path, parse_onshape_url
 
 
 class OnshapeIdsTup(NamedTuple):

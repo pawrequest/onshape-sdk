@@ -68,7 +68,7 @@ onshape-sdk export /
 ### python
 
 ```python
-from onshape_sdk import OnshapeClient, OnshapeIdsTup, OnshapeSettings
+from src.onshape_sdk import OnshapeClient, OnshapeIdsTup, OnshapeSettings
 
 settings = OnshapeSettings()  # optional - otherwise read default .env location or env_vars 
 client = OnshapeClient(settings)  # or just `OnshapeClient() for defaults`

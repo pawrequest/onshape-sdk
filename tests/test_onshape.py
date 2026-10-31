@@ -5,9 +5,9 @@ from pprint import pprint
 import pytest
 from dotenv import load_dotenv
 
-from onshape_sdk import AssemblyDefinition, OnshapeClient, Part
-from onshape_sdk.ids import OnshapeIdsTup
-from onshape_sdk.client_routines import export_from_ps, get_parts_by_name
+from src.onshape_sdk import AssemblyDefinition, OnshapeClient, Part
+from src.onshape_sdk import OnshapeIdsTup
+from src.onshape_sdk.client_routines import export_from_ps, get_parts_by_name
 
 env = Path(__file__).parent.parent / '.env'
 load_dotenv(dotenv_path=env, override=True)

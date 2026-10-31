@@ -8,7 +8,7 @@ title: Type Reference
 All API responses are parsed into typed Python dataclasses. Every dataclass has a `from_dict(data)` classmethod and a `.raw` attribute containing the full API response dict.
 
 ```python
-from onshape_sdk import Document, Part, TranslationStatus  # etc.
+from src.onshape_sdk import Document, Part, TranslationStatus  # etc.
 ```
 
 ## Dataclass Reference

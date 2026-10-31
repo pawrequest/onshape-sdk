@@ -33,7 +33,7 @@ except Exception as e:
 The `TranslationsApi` raises `TranslationError` for failed or timed-out export jobs:
 
 ```python
-from onshape_sdk.translations import TranslationError
+from src.onshape_sdk import TranslationError
 
 try:
     client.translations.export(
@@ -56,7 +56,7 @@ except TranslationError as e:
 `parse_onshape_url` raises `ValueError` for invalid URLs:
 
 ```python
-from onshape_sdk import parse_onshape_url
+from src.onshape_sdk import parse_onshape_url
 
 try:
     ids = parse_onshape_url("https://google.com")

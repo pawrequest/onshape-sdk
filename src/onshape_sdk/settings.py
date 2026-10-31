@@ -4,8 +4,8 @@ from pathlib import Path
 from pydantic import SecretStr, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from onshape_sdk.auth import OnshapeHmacAuth
-from onshape_sdk.utils import PROJECT_ROOT
+from src.onshape_sdk.auth import OnshapeHmacAuth
+from src.onshape_sdk.utils import PROJECT_ROOT
 
 
 def default_headers() -> dict[str, str]:

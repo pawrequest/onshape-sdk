@@ -1,9 +1,5 @@
-[build-system]
-requires = ["setuptools>=69", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "onshape-sdk"
+name = "onshape-sdk-pr"
 version = "0.1.2"
 description = "A lightweight, typed Python SDK for the Onshape REST API"
 readme = "README.md"
@@ -18,12 +14,6 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
@@ -41,16 +31,14 @@ Homepage = "https://github.com/pawrequest/onshape-sdk"
 onshape-sdk = "onshape_sdk.main:main"
 
 
-#[tool.setuptools]
-#include-package-data = true
-
-#[tool.setuptools.packages.find]
-#include = ["onshape_sdk", "onshape_sdk.*"]
-#
-#[tool.setuptools.package-data]
-#onshape_sdk = ["py.typed"]
-
 [dependency-groups]
 dev = [
     "pytest>=8.3.5",
 ]
+
+[build-system]
+requires = ["uv_build>=0.13.6,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "onshape_sdk"

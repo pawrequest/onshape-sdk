@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from onshape_sdk import OnshapeClient, Part
-from onshape_sdk.ids import OnshapeIdsTup
-from onshape_sdk.utils import filter_named, save_bytes
+from src.onshape_sdk import OnshapeClient, Part
+from src.onshape_sdk.ids import OnshapeIdsTup
+from src.onshape_sdk.utils import filter_named, save_bytes
 
 
 def get_parts_by_name(

@@ -8,7 +8,7 @@ title: OnshapeClient
 The core client that handles authentication and provides access to all API resources.
 
 ```python
-from onshape_sdk import OnshapeClient
+from src.onshape_sdk import OnshapeClient
 ```
 
 ## Constructor

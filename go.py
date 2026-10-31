@@ -1,4 +1,4 @@
-from onshape_sdk import OnshapeClient
+from src.onshape_sdk import OnshapeClient
 
 if __name__ == '__main__':
     client = OnshapeClient()

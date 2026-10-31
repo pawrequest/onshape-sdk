@@ -2,11 +2,11 @@ import os
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
-from onshape_sdk import OnshapeClient
-from onshape_sdk.settings import OnshapeSettings
-from onshape_sdk.client_routines import export_from_ps
-from onshape_sdk.ids import OnshapeIdsTup
-from onshape_sdk.utils import PROJECT_ROOT
+from src.onshape_sdk import OnshapeClient
+from src.onshape_sdk.settings import OnshapeSettings
+from src.onshape_sdk.client_routines import export_from_ps
+from src.onshape_sdk.ids import OnshapeIdsTup
+from src.onshape_sdk.utils import PROJECT_ROOT
 
 
 def cmd_export(client: OnshapeClient, args: Namespace) -> None:

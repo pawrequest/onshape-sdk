@@ -51,7 +51,7 @@ The nonce goes **only** in the `On-Nonce` header — **not** in the `Authorizati
 The simplest approach — reads `ONSHAPE_ACCESS_KEY` and `ONSHAPE_SECRET_KEY` from a `.env` file:
 
 ```python
-from onshape_sdk import OnshapeClient
+from src.onshape_sdk import OnshapeClient
 
 client = OnshapeClient.from_env()
 ```

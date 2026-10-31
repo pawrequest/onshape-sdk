@@ -25,7 +25,7 @@ https://cad.onshape.com/documents/{did}/{w|v|m}/{wvm_id}/e/{eid}
 Extracts all four IDs from a full Onshape URL:
 
 ```python
-from onshape_sdk import parse_onshape_url
+from src.onshape_sdk import parse_onshape_url
 
 url = "https://cad.onshape.com/documents/804d1a7a071db077dbad4e42/w/c9f128ed004c27e492b8cebb/e/58863216bdaab008805f5f3f"
 ids = parse_onshape_url(url)
@@ -72,7 +72,7 @@ client.translations.export(
 Builds the common `/d/{did}/{wvm}/{wvm_id}/e/{eid}` path fragment used in most API routes:
 
 ```python
-from onshape_sdk import build_wvm_path
+from src.onshape_sdk import build_wvm_path
 
 # With element ID
 path = build_wvm_path("abc123", "w", "def456", eid="789fed")
