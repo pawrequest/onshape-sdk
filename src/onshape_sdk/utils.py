@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import TypedDict, Protocol
 
-PROJECT_ROOT = Path(__file__).parent.parent
+PROJECT_ROOT = Path(__file__).parent.parent.parent
 
 
 class OnshapeIds(TypedDict):
