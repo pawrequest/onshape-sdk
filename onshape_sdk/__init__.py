@@ -10,6 +10,7 @@ Quick start
 """
 
 from .client import OnshapeClient
+from .ids import OnshapeIdsTup
 from .settings import OnshapeSettings
 from .utils import OnshapeIds, build_wvm_path, parse_onshape_url
 
@@ -56,6 +57,7 @@ __all__ = [
     # Client
     'OnshapeClient',
     'OnshapeSettings',
+    'OnshapeIdsTup',
     # Utils
     'parse_onshape_url',
     'build_wvm_path',

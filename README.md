@@ -6,6 +6,8 @@ Upstream Documentation: [https://zachariahsharma.github.io/onshape-sdk/](https:/
 
 Upstream didn't work for some routes and it's api_version is old, so i forked.
 
+I have not tested all routes, ymmv.  
+
 Major Fork changes:
 
 - Updated API version from 6 to 10
@@ -19,11 +21,17 @@ Major Fork changes:
 git clone <rep-url>
 ```
 
+or don't and use uv:
+
+```shell
+uv tool run --from git+https://github.com/pawrequest/onshape-sdk onshape-sdk export
+```
+
 ### Configuration
 
 Create Onshape API access and secret keys via the developer portal on OnShape's website.
 
-PydanticSettings are built from a .env file or environment variables.  
+PydanticSettings are built from .env file or environment variables.  
 Place a .env with required inputs in default location "<project_root>/.env"  (sibling of this readme)  
 Or do one of:
 
@@ -60,13 +68,13 @@ onshape-sdk export /
 ### python
 
 ```python
-from onshape_sdk import OnshapeClient, OnshapeSettings, parse_onshape_url
+from onshape_sdk import OnshapeClient, OnshapeIdsTup, OnshapeSettings
 
 settings = OnshapeSettings()  # optional - otherwise read default .env location or env_vars 
 client = OnshapeClient(settings)  # or just `OnshapeClient() for defaults`
-ids = parse_onshape_url("https://cad.onshape.com/documents/.../w/.../e/...")
-
-bom = client.assemblies.get_bom(ids["did"], ids["wvm_type"], ids["wvm_id"], ids["eid"])
+url = '<ONSHAPE_URL>'
+ids = OnshapeIdsTup.from_url(url)
+bom = client.assemblies.get_bom(*ids)
 for row in bom.rows:
     print(row.part_number, row.name, row.quantity, row.material_name)
 ```
