@@ -1,3 +1,4 @@
+import os
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
@@ -16,6 +17,8 @@ def cmd_export(client: OnshapeClient, args: Namespace) -> None:
         save_path=args.output,
         filter_text=args.parts_filter,
     )
+    if args.launch_exported:
+        os.startfile(args.output)
 
 
 def build_parser() -> ArgumentParser:
@@ -27,9 +30,10 @@ def build_parser() -> ArgumentParser:
 
     # onshape export --url ... --output ... [--parts-filter ...]
     export = subparsers.add_parser('export', help='Export parts from a part studio')
-    export.add_argument('--url', required=True, type=str)
+    export.add_argument('--url', '-u', required=True, type=str)
     export.add_argument('--output', '-o', required=True, type=Path)
     export.add_argument('--parts-filter', '-pf', default='', type=str)
+    export.add_argument('--launch-exported', '-l', action="store_true")
     export.set_defaults(cmd_func=cmd_export)
 
     # Adding another subcommand is just more of the same:
